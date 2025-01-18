@@ -3,10 +3,12 @@ import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { doc, updateDoc, arrayUnion, getFirestore, getDoc } from 'firebase/firestore';
 import { FIREBASE_AUTH } from 'firebase'; // Assuming FIREBASE_AUTH is initialized and exported
 import CustomNavbar from 'components/CustomNavbar';
+import { useNavigation } from '@react-navigation/native';
 
 export default function FrontPage() {
   const [lastShower, setLastShower] = useState(null); // State to store the last shower timestamp
   const user = FIREBASE_AUTH.currentUser; // Get the current user
+  const navigation = useNavigation();
 
   useEffect(() => {
     // Fetch the last timestamp when the component mounts
@@ -58,17 +60,29 @@ export default function FrontPage() {
       });
 
       setLastShower(`${timestamp.date} at ${timestamp.time}`); // Update the display
-      Alert.alert('Shower Logged', `Date: ${timestamp.date}\nTime: ${timestamp.time}`);
+      Alert.alert('Timestamp Uploaded', `Date: ${timestamp.date}\nTime: ${timestamp.time}`);
     } catch (error) {
       console.error('Error uploading timestamp:', error.message);
       Alert.alert('Error', `Failed to upload timestamp. ${error.message}`);
     }
   };
 
+  const handleSignOut = () => {
+    FIREBASE_AUTH.signOut()
+      .then(() => {
+        Alert.alert('Signed Out', 'You have been successfully signed out.');
+        navigation.navigate('Login');
+      })
+      .catch((error) => {
+        console.error('Error signing out:', error);
+        Alert.alert('Error', 'Failed to sign out.');
+      });
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>
-        nu<Text style={styles.orange}>Shower</Text>
+        nu<Text style={styles.orange}>S</Text>hower
       </Text>
 
       <View style={styles.uploadContainer}>
@@ -77,6 +91,10 @@ export default function FrontPage() {
 
         <TouchableOpacity style={styles.timestampButton} onPress={handleTimestampUpload}>
           <Text style={styles.uploadButtonText}>Log Shower</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
+          <Text style={styles.uploadButtonText}>Sign Out</Text>
         </TouchableOpacity>
       </View>
 
@@ -124,6 +142,13 @@ const styles = StyleSheet.create({
   },
   timestampButton: {
     backgroundColor: '#32CD32', // Green color for timestamp button
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginBottom: 20,
+  },
+  signOutButton: {
+    backgroundColor: '#FF4500', // Red color for sign out button
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
