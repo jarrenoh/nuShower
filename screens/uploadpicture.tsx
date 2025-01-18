@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
-import * as ImagePicker from 'react-native-image-picker'; // Add image picker library
+import * as ImagePicker from 'react-native-image-picker';
+import { doc, updateDoc, arrayUnion, getFirestore, collection, addDoc } from 'firebase/firestore'; // Firestore imports
+import { FIREBASE_AUTH } from 'firebase'; // Assuming FIREBASE_AUTH is initialized and exported
+
+const FIREBASE_DB = getFirestore();
 
 export default function FrontPage() {
   const [imageUri, setImageUri] = useState(null); // State to store the selected image URI
+  const user = FIREBASE_AUTH.currentUser; // Get the current user
 
   const handleImageUpload = () => {
-    // Use the image picker to select an image
     ImagePicker.launchImageLibrary({ mediaType: 'photo' }, (response) => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.errorCode) {
         console.error('ImagePicker Error: ', response.errorMessage);
+      } else {
+        setImageUri(response.assets[0]?.uri || null); // Set the image URI
       }
     });
   };
@@ -21,20 +27,55 @@ export default function FrontPage() {
       const now = new Date();
       const date = now.toLocaleDateString();
       const time = now.toLocaleTimeString();
-    
-      // Show the log entry in an alert (for demo purposes)
-      Alert.alert('Shower Logged', `Date: ${date}\nTime: ${time}`);
 
-      // You would also update the calendar/log here
-      // For example, storing the log entry in a database or local storage
+      Alert.alert('Shower Logged', `Date: ${date}\nTime: ${time}`);
     } else {
       Alert.alert('No image', 'Please select an image to upload.');
     }
   };
 
+  
+
+  const handleTimestampUpload = async () => {
+    const user = FIREBASE_AUTH.currentUser;
+  
+    if (!user) {
+      Alert.alert('Error', 'No user is logged in.');
+      return;
+    }
+  
+    const now = new Date();
+    const timestamp = {
+      date: now.toLocaleDateString(),
+      time: now.toLocaleTimeString(),
+      createdAt: now,
+    };
+  
+    console.log('Preparing to upload timestamp for user:', user.uid);
+  
+    try {
+      // Get a reference to the user's document
+      const userDocRef = doc(FIREBASE_DB, 'users', user.uid);
+  
+      // Update the document with the new timestamp
+      await updateDoc(userDocRef, {
+        timestamps: arrayUnion(timestamp), // Add the timestamp to an array
+      });
+  
+      Alert.alert('Timestamp Uploaded', `Date: ${timestamp.date}\nTime: ${timestamp.time}`);
+      console.log('Timestamp successfully added for user:', user.uid);
+    } catch (error) {
+      console.error('Error uploading timestamp:', error.message);
+      Alert.alert('Error', `Failed to upload timestamp. ${error.message}`);
+    }
+  };
+  
+
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>nu<Text style={styles.orange}>S</Text>hower</Text>
+      <Text style={styles.header}>
+        nu<Text style={styles.orange}>S</Text>hower
+      </Text>
 
       <View style={styles.uploadContainer}>
         <Text style={styles.uploadTitle}>Prove That You Showered</Text>
@@ -55,6 +96,10 @@ export default function FrontPage() {
 
         <TouchableOpacity style={styles.uploadButton} onPress={handleUpload}>
           <Text style={styles.uploadButtonText}>Upload</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.timestampButton} onPress={handleTimestampUpload}>
+          <Text style={styles.uploadButtonText}>Log Timestamp</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -100,6 +145,13 @@ const styles = StyleSheet.create({
   },
   uploadButton: {
     backgroundColor: '#4169e1',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginBottom: 20,
+  },
+  timestampButton: {
+    backgroundColor: '#32CD32', // Green color for timestamp button
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
