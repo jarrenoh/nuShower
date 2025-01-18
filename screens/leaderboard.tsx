@@ -96,7 +96,7 @@ const LeaderboardScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Last Shower Leaderboard</Text>
+      <Text style={styles.title}>MUSTIEST MF</Text>
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
