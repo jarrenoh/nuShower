@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Linking } from 'react-native';
 import CustomNavbar from 'components/CustomNavbar';
+import lazada from '../assets/lazada.png';
+import amazon from '../assets/amazon.png';
+import shopee from '../assets/shopee.png';
 
 const PurchaseScreen = () => {
   return (
@@ -15,7 +18,7 @@ const PurchaseScreen = () => {
         {/* Lazada Link Card */}
         <View style={styles.linkCard}>
           <Image
-            source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/Lazada_%282019%29.svg' }}
+            source={lazada} // Use the imported image
             style={styles.logo}
           />
           <TouchableOpacity
@@ -28,7 +31,7 @@ const PurchaseScreen = () => {
         {/* Amazon Link Card */}
         <View style={styles.linkCard}>
           <Image
-            source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg' }}
+            source={amazon}
             style={styles.logo}
           />
           <TouchableOpacity
@@ -41,7 +44,7 @@ const PurchaseScreen = () => {
         {/* Shopee Link Card */}
         <View style={styles.linkCard}>
           <Image
-            source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopee_logo.svg' }}
+            source={shopee}
             style={styles.logo}
           />
           <TouchableOpacity
