@@ -5,6 +5,7 @@ import Login from 'screens/Login';
 import Shower from 'screens/shower';
 import PurchaseScreen from 'screens/purchase';
 import Alert from 'screens/alert';
+import LeaderboardScreen from 'screens/leaderboard';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -14,10 +15,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Login'> 
-        <Stack.Screen options = {{headerShown: false}} name="Login" component={Login}  />
-        <Stack.Screen options = {{headerShown: false}} name="Shower" component={Shower} />
-        <Stack.Screen options = {{headerShown: false}} name="PurchaseScreen" component={PurchaseScreen} />
-        <Stack.Screen options = {{headerShown: false}} name="Alert" component={Alert} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="UploadPicture" component={UploadPicture} />
+        <Stack.Screen name="PurchaseScreen" component={PurchaseScreen} />
+        <Stack.Screen name="Alert" component={Alert} />
+        <Stack.Screen name="Leaderboard" component={LeaderboardScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
