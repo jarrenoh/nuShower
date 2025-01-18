@@ -15,14 +15,6 @@ const LoginScreen = () => {
   const auth = FIREBASE_AUTH;
   const navigation = useNavigation();
 
-  const purchase = () => {
-    navigation.navigate('PurchaseScreen');
-  }
-
-  const alert = () => {
-    navigation.navigate('Alert');
-  }
-
 
   const signup = async () => {
     setLoading(true);
@@ -83,13 +75,6 @@ const LoginScreen = () => {
 
       <TouchableOpacity style={styles.button} onPress={signup} disabled={loading}>
         <Text style={styles.buttonText}>Sign Up</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.button} onPress={purchase}>
-        <Text style={styles.buttonText}>Purchase</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={alert}>
-        <Text style={styles.buttonText}>Alert</Text>
       </TouchableOpacity>
       
     </View>
