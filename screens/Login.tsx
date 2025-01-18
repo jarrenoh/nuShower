@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button } from 'react-native'
+import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native'
 import React, {useState }from 'react'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth'
 import { Firestore } from 'firebase/firestore'
@@ -48,7 +48,7 @@ const LoginScreen = () => {
 
 return (
     <View style = {styles.container}>
-      <Text style={styles.header}>nu<Text style={styles.orange}>S</Text>hower</Text>
+      <Text style={styles.header}>nu<Text style={styles.orange}>Shower</Text></Text>
       <TextInput
         placeholder = "Email"
         value = {email}
@@ -63,17 +63,19 @@ return (
         onChangeText = {setPassword}
         style = {{borderWidth: 1, padding: 10, margin: 10, width: 200}}
       />
-      <Button
-        title = "Login"
+      <TouchableOpacity style = {styles.button}
         onPress = {signin}
         disabled = {loading}
-      />
+      >
+        <Text style = {styles.buttonText}>Sign In</Text>
+      </TouchableOpacity>
 
-      <Button
-        title = "Sign Up"
+      <TouchableOpacity style = {styles.button}
         onPress = {signup}
         disabled = {loading}
-      />
+      >
+        <Text style = {styles.buttonText}>Sign Up</Text>
+      </TouchableOpacity>
 
       
     </View>
@@ -97,6 +99,17 @@ const styles = {
   },
   orange: {
     color: '#fa6800',
+  }, 
+  button: {
+    backgroundColor: '#4169e1',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginBottom: 20,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
   }
 
 }
