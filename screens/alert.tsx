@@ -7,11 +7,19 @@ const alert = require('../assets/alert.m4a'); // Load the file directly
 
 const EmergencyAlert: React.FC = () => {
   const playSound = async () => {
+    const soundObject = new Audio.Sound();
     try {
-      await Audio.requestPermissionsAsync(); // Request permissions for audio playback
-      const { sound } = await Audio.Sound.createAsync(alert);
-      await sound.playAsync();
-      console.log('Playing sound');
+      console.log('Loading sound...');
+      await soundObject.loadAsync(alert); // Load the sound file
+      console.log('Playing sound...');
+      await soundObject.playAsync(); // Play the sound
+
+      // Optionally unload the sound after playback
+      soundObject.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          soundObject.unloadAsync(); // Unload the sound
+        }
+      });
     } catch (error) {
       console.error('Error playing sound:', error);
       Alert.alert('Error', 'Unable to play sound. Please check the file path or permissions.');
