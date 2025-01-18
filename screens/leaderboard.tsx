@@ -47,8 +47,18 @@ const LeaderboardScreen: React.FC = () => {
         };
       });
 
-      // Sort users by the most recent last shower time
-      data.sort((a, b) => (b.lastShowerTime?.getTime() || 0) - (a.lastShowerTime?.getTime() || 0));
+      // Sort users by the longest last shower time first, followed by users with no data (null)
+      data.sort((a, b) => {
+        // If both have lastShowerTime, sort by the time difference (longest time first)
+        if (a.lastShowerTime && b.lastShowerTime) {
+          return a.lastShowerTime.getTime() - b.lastShowerTime.getTime(); // descending order
+        }
+        // If a has no lastShowerTime, move it to the end (but keep b in the list)
+        if (!a.lastShowerTime) return 1;
+        // If b has no lastShowerTime, move it to the end (but keep a in the list)
+        if (!b.lastShowerTime) return -1;
+        return 0;
+      });
 
       setLeaderboardData(data);
       setLoading(false);
