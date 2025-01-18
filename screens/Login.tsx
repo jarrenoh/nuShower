@@ -17,6 +17,9 @@ const LoginScreen = () => {
       .then(() => {
         console.log('Signed up')
       })
+      .then(() => {
+        navigation.navigate('UploadPicture')
+      })
       .catch((error) => {
         console.log('Error:', error)
       })
@@ -31,16 +34,15 @@ const LoginScreen = () => {
       .then(() => {
         console.log('Logged in')
       })
+      .then(() => {
+        navigation.navigate('UploadPicture')
+      })
       .catch((error) => {
         console.log('Error:', error)
       })
       .finally(() => {
         setLoading(false)
       })
-  }
-
-  const goToUploadPicture = () => {
-    navigation.navigate('UploadPicture')
   }
 
 return (
@@ -72,11 +74,7 @@ return (
         disabled = {loading}
       />
 
-      button that navigates to the upload picture screen
-      <Button
-        title = "Upload Picture"
-        onPress = {goToUploadPicture}
-      />
+      
     </View>
 
   )
