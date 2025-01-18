@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Linking } from 'react-native';
+import CustomNavbar from 'components/CustomNavbar';
 
 const PurchaseScreen = () => {
   return (
@@ -54,6 +55,7 @@ const PurchaseScreen = () => {
       <Text style={styles.footer}>
         &copy; 2025 NUS team1234 | Designed with care.
       </Text>
+      <CustomNavbar />
     </View>
   );
 };

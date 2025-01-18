@@ -19,6 +19,11 @@ const LoginScreen = () => {
     navigation.navigate('PurchaseScreen');
   }
 
+  const alert = () => {
+    navigation.navigate('Alert');
+  }
+
+
   const signup = async () => {
     setLoading(true);
     try {
@@ -83,6 +88,10 @@ const LoginScreen = () => {
       <TouchableOpacity style={styles.button} onPress={purchase}>
         <Text style={styles.buttonText}>Purchase</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={alert}>
+        <Text style={styles.buttonText}>Alert</Text>
+      </TouchableOpacity>
+      
     </View>
   );
 };

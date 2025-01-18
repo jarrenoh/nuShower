@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Image, StyleSheet, Alert } from 'react-na
 import * as ImagePicker from 'react-native-image-picker';
 import { doc, updateDoc, arrayUnion, getFirestore, collection, addDoc } from 'firebase/firestore'; // Firestore imports
 import { FIREBASE_AUTH } from 'firebase'; // Assuming FIREBASE_AUTH is initialized and exported
+import CustomNavbar from 'components/CustomNavbar';
 
 
 export default function FrontPage() {
@@ -114,9 +115,8 @@ export default function FrontPage() {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.uploadButton} onPress={navigateToPurchase}>
-        <Text style={styles.uploadButtonText}>Purchase</Text>
-      </TouchableOpacity>
+
+      <CustomNavbar />
     </View>
   );
 }
