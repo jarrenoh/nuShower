@@ -6,6 +6,7 @@ import {
   FlatList,
   StyleSheet,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import { FIREBASE_AUTH } from 'firebase';
 import { getFirestore, collection, getDocs, QueryDocumentSnapshot } from 'firebase/firestore';
@@ -84,7 +85,15 @@ const LeaderboardScreen: React.FC = () => {
     return (
       <View style={[styles.item, item.id === currentUserId && styles.highlightedItem]}>
         <View style={styles.userInfo}>
-          <Text style={styles.rank}>{index + 1}</Text>
+          {index === 0 ? (
+            // Show the image for first place
+            <Image
+              source={require('../assets/istockphoto-164109600-612x612.jpg')} // Path to your jpg image
+              style={styles.rankImage}
+            />
+          ) : (
+            <Text style={styles.rank}>{index + 1}</Text>
+          )}
           <View style={styles.emailContainer}>
             <Text style={styles.email}>{item.email}</Text>
             <Text style={styles.specialText}>{timeElapsed}</Text>
@@ -151,6 +160,10 @@ const styles = StyleSheet.create({
   rank: {
     fontWeight: 'bold',
     fontSize: 18,
+  },
+  rankImage: {
+    width: 40,
+    height: 40,
   },
   email: {
     fontSize: 18,
