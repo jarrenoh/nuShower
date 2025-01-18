@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, Linking } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Linking, SafeAreaView } from 'react-native';
 import CustomNavbar from 'components/CustomNavbar';
 import lazada from '../assets/lazada.png';
 import amazon from '../assets/amazon.png';
@@ -7,59 +7,65 @@ import shopee from '../assets/shopee.png';
 
 const PurchaseScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Purchase Your Soap Now!</Text>
+    <SafeAreaView style={styles.container}>
+      {/* Main Content */}
+      <View style={styles.content}>
+        <Text style={styles.header}>Purchase Your Soap Now!</Text>
 
-      <Text style={styles.description}>
-        discover & buy high-quality body washes from trusted online stores:
-      </Text>
+        <Text style={styles.description}>
+          Discover & buy high-quality body washes from trusted online stores:
+        </Text>
 
-      <View style={styles.linkContainer}>
-        {/* Lazada Link Card */}
-        <View style={styles.linkCard}>
-          <Image
-            source={lazada} // Use the imported image
-            style={styles.logo}
-          />
-          <TouchableOpacity
-            onPress={() => Linking.openURL('https://www.lazada.sg/shop-healthbeauty-bathbody-bodysoapsshowergels-bodywash/')}
-          >
-            <Text style={styles.linkText}>Lazada</Text>
-          </TouchableOpacity>
+        <View style={styles.linkContainer}>
+          {/* Lazada Link Card */}
+          <View style={styles.linkCard}>
+            <Image source={lazada} style={styles.logo} />
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL(
+                  'https://www.lazada.sg/shop-healthbeauty-bathbody-bodysoapsshowergels-bodywash/'
+                )
+              }
+            >
+              <Text style={styles.linkText}>Lazada</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Amazon Link Card */}
+          <View style={styles.linkCard}>
+            <Image source={amazon} style={styles.logo} />
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL(
+                  'https://www.amazon.sg/s?k=amazon+body+wash&adgrpid=94984823719&hvadid=587401489396&hvdev=c&hvlocphy=9062542&hvnetw=g&hvqmt=e&hvrand=9494914807759701025&hvtargid=kwd-361201549438&hydadcr=1056_339584&tag=googlepcstdsg-22&ref=pd_sl_4w6jff7hft_e'
+                )
+              }
+            >
+              <Text style={styles.linkText}>Amazon</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Shopee Link Card */}
+          <View style={styles.linkCard}>
+            <Image source={shopee} style={styles.logo} />
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL('https://shopee.sg/search?keyword=body%20wash&is_from_login=true')
+              }
+            >
+              <Text style={styles.linkText}>Shopee</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
-        {/* Amazon Link Card */}
-        <View style={styles.linkCard}>
-          <Image
-            source={amazon}
-            style={styles.logo}
-          />
-          <TouchableOpacity
-            onPress={() => Linking.openURL('https://www.amazon.sg/s?k=amazon+body+wash&adgrpid=94984823719&hvadid=587401489396&hvdev=c&hvlocphy=9062542&hvnetw=g&hvqmt=e&hvrand=9494914807759701025&hvtargid=kwd-361201549438&hydadcr=1056_339584&tag=googlepcstdsg-22&ref=pd_sl_4w6jff7hft_e')}
-          >
-            <Text style={styles.linkText}>Amazon</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Shopee Link Card */}
-        <View style={styles.linkCard}>
-          <Image
-            source={shopee}
-            style={styles.logo}
-          />
-          <TouchableOpacity
-            onPress={() => Linking.openURL('https://shopee.sg/search?keyword=body%20wash&is_from_login=true')}
-          >
-            <Text style={styles.linkText}>Shopee</Text>
-          </TouchableOpacity>
-        </View>
+        <Text style={styles.footer}>
+          &copy; 2025 NUS team1234 | Designed with care.
+        </Text>
       </View>
 
-      <Text style={styles.footer}>
-        &copy; 2025 NUS team1234 | Designed with care.
-      </Text>
+      {/* Navbar */}
       <CustomNavbar />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -67,18 +73,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
+    justifyContent: 'space-between', // Ensure navbar is at the bottom
+  },
+  content: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
   },
   header: {
-    color: '#104376', // Navy Blue
+    color: '#104376',
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
   },
   description: {
-    fontFamily: 'Arial', // font
+    fontFamily: 'Arial',
     fontSize: 18,
     color: '#03305e',
     marginBottom: 20,

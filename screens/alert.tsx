@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
 import { Audio } from 'expo-av';
 import CustomNavbar from 'components/CustomNavbar';
 import sos from '../assets/sos.png';
@@ -32,7 +32,7 @@ const EmergencyAlert: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Peeping Tom Alert</Text>
         <TouchableOpacity onPress={handleAlert}>
@@ -40,7 +40,7 @@ const EmergencyAlert: React.FC = () => {
         </TouchableOpacity>
       </View>
       <CustomNavbar />
-    </View>
+    </SafeAreaView>
   );
 };
 

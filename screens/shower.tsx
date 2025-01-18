@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, Linking, SafeAreaView } from 'react-native';
 import { doc, updateDoc, arrayUnion, getFirestore, getDoc } from 'firebase/firestore';
 import { FIREBASE_AUTH } from 'firebase'; // Assuming FIREBASE_AUTH is initialized and exported
 import CustomNavbar from 'components/CustomNavbar';
@@ -11,7 +11,6 @@ export default function FrontPage() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    // Fetch the last timestamp when the component mounts
     const fetchLastShower = async () => {
       if (user) {
         try {
@@ -51,15 +50,12 @@ export default function FrontPage() {
     };
 
     try {
-      // Get a reference to the user's document
       const userDocRef = doc(getFirestore(), 'users', user.uid);
-
-      // Update the document with the new timestamp
       await updateDoc(userDocRef, {
-        timestamps: arrayUnion(timestamp), // Add the timestamp to an array
+        timestamps: arrayUnion(timestamp),
       });
 
-      setLastShower(`${timestamp.date} at ${timestamp.time}`); // Update the display
+      setLastShower(`${timestamp.date} at ${timestamp.time}`);
       Alert.alert('Timestamp Uploaded', `Date: ${timestamp.date}\nTime: ${timestamp.time}`);
     } catch (error) {
       console.error('Error uploading timestamp:', error.message);
@@ -80,56 +76,39 @@ export default function FrontPage() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.uploadContainer}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.content}>
         <Text style={styles.uploadTitle}>Your Last Shower:</Text>
         <Text style={styles.lastShowerText}>{lastShower || 'Loading...'}</Text>
 
-        <TouchableOpacity style={styles.timestampButton} onPress={handleTimestampUpload}>
-          <Text style={styles.uploadButtonText}>Log Shower</Text>
+        <TouchableOpacity style={[styles.button, styles.timestampButton]} onPress={handleTimestampUpload}>
+          <Text style={styles.buttonText}>Log Shower</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
-          <Text style={styles.uploadButtonText}>Sign Out</Text>
+        <TouchableOpacity style={[styles.button, styles.showerButton]} onPress={() => Linking.openURL('https://maps.app.goo.gl/2ZThXp6xrsazqEjB7')}>
+          <Text style={styles.buttonText}>Find a Shower Near You</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => Linking.openURL('https://maps.app.goo.gl/2ZThXp6xrsazqEjB7')}> 
-          <Text style = {styles.showerButton} >Find a Shower Near You</Text>
+        <TouchableOpacity style={[styles.button, styles.signOutButton]} onPress={handleSignOut}>
+          <Text style={styles.buttonText}>Sign Out</Text>
         </TouchableOpacity>
       </View>
-
       <CustomNavbar />
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     backgroundColor: '#f8f9fa',
   },
-  header: {
-    fontSize: 36,
-    fontFamily: 'Great Vibes',
-    color: '#173e78',
-    textAlign: 'center',
-  },
-  orange: {
-    color: '#fa6800',
-  },
-  uploadContainer: {
-    backgroundColor: '#f8f8f8',
-    borderRadius: 8,
-    padding: 20,
-    marginTop: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    width: '80%',
+  content: {
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
   },
   uploadTitle: {
     fontSize: 24,
@@ -140,29 +119,24 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 20,
   },
-  timestampButton: {
-    backgroundColor: '#32CD32', // Green color for timestamp button
+  button: {
+    width: 200,
     paddingVertical: 10,
-    paddingHorizontal: 20,
     borderRadius: 5,
     marginBottom: 20,
+    alignItems: 'center',
+  },
+  timestampButton: {
+    backgroundColor: '#32CD32',
+  },
+  showerButton: {
+    backgroundColor: '#4169e1',
   },
   signOutButton: {
-    backgroundColor: '#FF4500', // Red color for sign out button
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginBottom: 20,
+    backgroundColor: '#FF4500',
   },
-  uploadButtonText: {
+  buttonText: {
     color: '#fff',
     fontSize: 16,
-  },
-  showerButton : {
-    backgroundColor: '#4169e1',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginBottom: 20,
   },
 });
