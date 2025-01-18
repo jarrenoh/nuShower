@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, Linking } from 'react-native';
 import { doc, updateDoc, arrayUnion, getFirestore, getDoc } from 'firebase/firestore';
 import { FIREBASE_AUTH } from 'firebase'; // Assuming FIREBASE_AUTH is initialized and exported
 import CustomNavbar from 'components/CustomNavbar';
@@ -96,6 +96,10 @@ export default function FrontPage() {
         <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
           <Text style={styles.uploadButtonText}>Sign Out</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => Linking.openURL('https://maps.app.goo.gl/2ZThXp6xrsazqEjB7')}> 
+          <Text style = {styles.showerButton} >Find a Shower Near You</Text>
+        </TouchableOpacity>
       </View>
 
       <CustomNavbar />
@@ -157,5 +161,12 @@ const styles = StyleSheet.create({
   uploadButtonText: {
     color: '#fff',
     fontSize: 16,
+  },
+  showerButton : {
+    backgroundColor: '#4169e1',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginBottom: 20,
   },
 });

@@ -9,7 +9,7 @@ const CustomNavbar = () => {
     <View style={styles.navbar}>
       <View style={styles.row}>
         <TouchableOpacity onPress={() => navigation.navigate('Shower')} style={styles.navItem}>
-          <Text style={styles.navText}>Upload</Text>
+          <Text style={styles.navText}>Shower</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Alert')} style={styles.navItem}>
           <Text style={styles.navText}>Alert</Text>
