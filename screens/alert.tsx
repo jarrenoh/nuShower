@@ -33,11 +33,12 @@ const EmergencyAlert: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Peeping Tom Alert</Text>
-      
-      <TouchableOpacity onPress={handleAlert}>
-        <Image source={sos} style={styles.sos} />
-      </TouchableOpacity>
+      <View style={styles.content}>
+        <Text style={styles.title}>Peeping Tom Alert</Text>
+        <TouchableOpacity onPress={handleAlert}>
+          <Image source={sos} style={styles.sos} />
+        </TouchableOpacity>
+      </View>
       <CustomNavbar />
     </View>
   );
@@ -46,9 +47,13 @@ const EmergencyAlert: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'space-between',
+    backgroundColor: '#fff',
+  },
+  content: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#173e78',
   },
   title: {
     fontSize: 24,

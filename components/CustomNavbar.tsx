@@ -1,6 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
+import leaderboad from '../assets/leaderboard.png';
+import shop from '../assets/shop.png';
+import shower from '../assets/shower.png';
+import alert from '../assets/alert.png';
 
 const CustomNavbar = () => {
   const navigation = useNavigation();
@@ -9,18 +13,18 @@ const CustomNavbar = () => {
     <View style={styles.navbar}>
       <View style={styles.row}>
         <TouchableOpacity onPress={() => navigation.navigate('Shower')} style={styles.navItem}>
-          <Text style={styles.navText}>Shower</Text>
+          <Image source={shower} style={styles.icons} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Alert')} style={styles.navItem}>
-          <Text style={styles.navText}>Alert</Text>
+          <Image source={alert} style={styles.icons} />
         </TouchableOpacity>
       </View>
       <View style={styles.row}>
         <TouchableOpacity onPress={() => navigation.navigate('PurchaseScreen')} style={styles.navItem}>
-          <Text style={styles.navText}>Shop</Text>
+          <Image source={shop} style={styles.icons} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Leaderboard')} style={styles.navItem}>
-          <Text style={styles.navText}>Leaderboard</Text>
+          <Image source={leaderboad} style={styles.icons} />
         </TouchableOpacity>
       </View>
     </View>
@@ -29,11 +33,11 @@ const CustomNavbar = () => {
 
 const styles = StyleSheet.create({
   navbar: {
-    flexDirection: 'column', // Arrange the rows vertically
-    backgroundColor: '#76c7c0',
+    flexDirection: 'row', // Arrange the rows vertically
+    justifyContent: 'space-around', // Space out the rows
+    backgroundColor: '#104376', // Navy Blue
     paddingVertical: 10,
     width: '100%',
-    alignItems: 'center',  // Center the navbar items horizontally
   },
   row: {
     flexDirection: 'row',   // Arrange items in each row horizontally
@@ -44,10 +48,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginHorizontal: 10,    // Space between navbar items horizontally
   },
-  navText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
+  icons : {
+    width: 30,
+    height: 30,
   },
 });
 
