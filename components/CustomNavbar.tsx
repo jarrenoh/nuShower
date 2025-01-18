@@ -8,8 +8,8 @@ const CustomNavbar = () => {
 
   return (
     <View style={styles.navbar}>
-      <TouchableOpacity onPress={() => navigation.navigate('UploadPicture')} style={styles.navItem}>
-        <Text style={styles.navText}>Upload</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Shower')} style={styles.navItem}>
+        <Text style={styles.navText}>Shower</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Alert')} style={styles.navItem}>
         <Text style={styles.navText}>Alert</Text>

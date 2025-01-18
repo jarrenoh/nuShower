@@ -37,7 +37,7 @@ const LoginScreen = () => {
       });
 
       console.log('Signed up and user added to Firestore');
-      navigation.navigate('UploadPicture');
+      navigation.navigate('Shower');
     } catch (error) {
       console.log('Error:', error.message);
     } finally {
@@ -50,7 +50,7 @@ const LoginScreen = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log('Logged in');
-      navigation.navigate('UploadPicture');
+      navigation.navigate('Shower');
     } catch (error) {
       console.log('Error:', error.message);
     } finally {

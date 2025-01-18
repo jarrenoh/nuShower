@@ -2,7 +2,7 @@ import {StatusBar} from 'expo-status-bar';
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Login from 'screens/Login';
-import UploadPicture from 'screens/uploadpicture';
+import Shower from 'screens/shower';
 import PurchaseScreen from 'screens/purchase';
 import Alert from 'screens/alert';
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,7 +15,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Login'> 
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="UploadPicture" component={UploadPicture} />
+        <Stack.Screen name="Shower" component={Shower} />
         <Stack.Screen name="PurchaseScreen" component={PurchaseScreen} />
         <Stack.Screen name="Alert" component={Alert} />
       </Stack.Navigator>
