@@ -24,7 +24,7 @@ const PurchaseScreen = () => {
           <TouchableOpacity
             onPress={() => Linking.openURL('https://www.lazada.sg/shop-healthbeauty-bathbody-bodysoapsshowergels-bodywash/')}
           >
-            <Text style={styles.linkText}>shop on Lazada</Text>
+            <Text style={styles.linkText}>Lazada</Text>
           </TouchableOpacity>
         </View>
 
@@ -37,7 +37,7 @@ const PurchaseScreen = () => {
           <TouchableOpacity
             onPress={() => Linking.openURL('https://www.amazon.sg/s?k=amazon+body+wash&adgrpid=94984823719&hvadid=587401489396&hvdev=c&hvlocphy=9062542&hvnetw=g&hvqmt=e&hvrand=9494914807759701025&hvtargid=kwd-361201549438&hydadcr=1056_339584&tag=googlepcstdsg-22&ref=pd_sl_4w6jff7hft_e')}
           >
-            <Text style={styles.linkText}>shop on Amazon</Text>
+            <Text style={styles.linkText}>Amazon</Text>
           </TouchableOpacity>
         </View>
 
@@ -50,7 +50,7 @@ const PurchaseScreen = () => {
           <TouchableOpacity
             onPress={() => Linking.openURL('https://shopee.sg/search?keyword=body%20wash&is_from_login=true')}
           >
-            <Text style={styles.linkText}>shop on Shopee</Text>
+            <Text style={styles.linkText}>Shopee</Text>
           </TouchableOpacity>
         </View>
       </View>

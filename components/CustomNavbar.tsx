@@ -17,7 +17,7 @@ const CustomNavbar = () => {
       </View>
       <View style={styles.row}>
         <TouchableOpacity onPress={() => navigation.navigate('PurchaseScreen')} style={styles.navItem}>
-          <Text style={styles.navText}>Purchase</Text>
+          <Text style={styles.navText}>Shop</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Leaderboard')} style={styles.navItem}>
           <Text style={styles.navText}>Leaderboard</Text>

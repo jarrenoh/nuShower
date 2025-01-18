@@ -4,7 +4,7 @@ import { Audio } from 'expo-av';
 import CustomNavbar from 'components/CustomNavbar';
 import sos from '../assets/sos.png';
 
-const alert = require('../assets/alert.m4a'); // Load the file directly
+const alert = require('../assets/alert.mp3'); // Load the file directly
 
 const EmergencyAlert: React.FC = () => {
   const playSound = async () => {

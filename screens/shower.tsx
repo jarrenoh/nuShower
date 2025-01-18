@@ -81,10 +81,6 @@ export default function FrontPage() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>
-        nu<Text style={styles.orange}>S</Text>hower
-      </Text>
-
       <View style={styles.uploadContainer}>
         <Text style={styles.uploadTitle}>Your Last Shower:</Text>
         <Text style={styles.lastShowerText}>{lastShower || 'Loading...'}</Text>
