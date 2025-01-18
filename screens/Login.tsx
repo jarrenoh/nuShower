@@ -1,6 +1,7 @@
 import { View, Text, TextInput, Button } from 'react-native'
 import React, {useState }from 'react'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth'
+import { Firestore } from 'firebase/firestore'
 import { FIREBASE_AUTH } from 'firebase'
 import { useNavigation } from '@react-navigation/core'
 
@@ -47,7 +48,7 @@ const LoginScreen = () => {
 
 return (
     <View style = {styles.container}>
-      <Text>LoginScreen</Text>
+      <Text style={styles.header}>nu<Text style={styles.orange}>S</Text>hower</Text>
       <TextInput
         placeholder = "Email"
         value = {email}
@@ -87,5 +88,15 @@ const styles = {
     flex: 1,
     justifyContent: 'center' as 'center',
     alignItems: 'center' as 'center'
+  },
+  header: {
+    fontSize: 36,
+    fontFamily: 'Great Vibes',
+    color: '#173e78',
+    textAlign: 'center',
+  },
+  orange: {
+    color: '#fa6800',
   }
+
 }

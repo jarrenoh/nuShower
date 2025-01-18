@@ -21,7 +21,7 @@ export default function FrontPage() {
       const now = new Date();
       const date = now.toLocaleDateString();
       const time = now.toLocaleTimeString();
-
+    
       // Show the log entry in an alert (for demo purposes)
       Alert.alert('Shower Logged', `Date: ${date}\nTime: ${time}`);
 
