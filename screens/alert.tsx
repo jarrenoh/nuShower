@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, Button, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
 import { Audio } from 'expo-av';
 import CustomNavbar from 'components/CustomNavbar';
+import sos from '../assets/sos.png';
 
 const alert = require('../assets/alert.m4a'); // Load the file directly
 
@@ -33,7 +34,10 @@ const EmergencyAlert: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Emergency Alert System</Text>
-      <Button title="Trigger Alarm" onPress={handleAlert} color="#fa6800" />
+      
+      <TouchableOpacity onPress={handleAlert}>
+        <Image source={sos} style={styles.sos} />
+      </TouchableOpacity>
       <CustomNavbar />
     </View>
   );
@@ -50,6 +54,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#fa6800',
     marginBottom: 20,
+  },
+  sos: {
+    width: 200,
+    height: 200,
+    margin: 20,
   },
 });
 
