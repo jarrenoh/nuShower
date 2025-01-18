@@ -33,7 +33,7 @@ const EmergencyAlert: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Emergency Alert System</Text>
+      <Text style={styles.title}>Peeping Tom Alert</Text>
       
       <TouchableOpacity onPress={handleAlert}>
         <Image source={sos} style={styles.sos} />
