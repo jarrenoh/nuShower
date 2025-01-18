@@ -2,6 +2,7 @@ import {StatusBar} from 'expo-status-bar';
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Login from 'screens/Login';
+import UploadPicture from 'screens/uploadpicture';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -12,6 +13,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Login'> 
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="UploadPicture" component={UploadPicture} />
       </Stack.Navigator>
     </NavigationContainer>
   );
