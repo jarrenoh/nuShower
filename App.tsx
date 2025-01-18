@@ -3,6 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Login from 'screens/Login';
 import UploadPicture from 'screens/uploadpicture';
+import PurchaseScreen from 'screens/purchase';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -14,6 +15,7 @@ export default function App() {
       <Stack.Navigator initialRouteName='Login'> 
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="UploadPicture" component={UploadPicture} />
+        <Stack.Screen name="PurchaseScreen" component={PurchaseScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

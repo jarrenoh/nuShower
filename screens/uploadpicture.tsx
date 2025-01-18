@@ -4,23 +4,34 @@ import * as ImagePicker from 'react-native-image-picker';
 import { doc, updateDoc, arrayUnion, getFirestore, collection, addDoc } from 'firebase/firestore'; // Firestore imports
 import { FIREBASE_AUTH } from 'firebase'; // Assuming FIREBASE_AUTH is initialized and exported
 
-const FIREBASE_DB = getFirestore();
 
 export default function FrontPage() {
   const [imageUri, setImageUri] = useState(null); // State to store the selected image URI
   const user = FIREBASE_AUTH.currentUser; // Get the current user
 
-  const handleImageUpload = () => {
-    ImagePicker.launchImageLibrary({ mediaType: 'photo' }, (response) => {
-      if (response.didCancel) {
+  const handleImageUpload = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibrary({
+        mediaType: 'photo', // Specify that only photos should be selectable
+        selectionLimit: 1,  // Allow only one image to be selected
+      });
+  
+      if (result.didCancel) {
         console.log('User cancelled image picker');
-      } else if (response.errorCode) {
-        console.error('ImagePicker Error: ', response.errorMessage);
+      } else if (result.assets && result.assets.length > 0) {
+        // Access the selected image
+        const asset = result.assets[0];
+        setImageUri(asset.uri); // Save the URI of the selected image
+        console.log('Selected image:', asset.uri);
       } else {
-        setImageUri(response.assets[0]?.uri || null); // Set the image URI
+        console.log('No image selected');
       }
-    });
+    } catch (error) {
+      console.error('Error picking image:', error);
+      Alert.alert('Error', 'Something went wrong while picking the image.');
+    }
   };
+  
 
   const handleUpload = () => {
     if (imageUri) {
@@ -102,6 +113,10 @@ export default function FrontPage() {
           <Text style={styles.uploadButtonText}>Log Timestamp</Text>
         </TouchableOpacity>
       </View>
+
+      <TouchableOpacity style={styles.uploadButton} onPress={navigateToPurchase}>
+        <Text style={styles.uploadButtonText}>Purchase</Text>
+      </TouchableOpacity>
     </View>
   );
 }

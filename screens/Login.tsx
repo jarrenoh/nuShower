@@ -7,12 +7,17 @@ import { useNavigation } from '@react-navigation/core';
 
 const FIREBASE_DB = getFirestore();
 
+
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const auth = FIREBASE_AUTH;
   const navigation = useNavigation();
+
+  const purchase = () => {
+    navigation.navigate('PurchaseScreen');
+  }
 
   const signup = async () => {
     setLoading(true);
@@ -73,6 +78,10 @@ const LoginScreen = () => {
 
       <TouchableOpacity style={styles.button} onPress={signup} disabled={loading}>
         <Text style={styles.buttonText}>Sign Up</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={purchase}>
+        <Text style={styles.buttonText}>Purchase</Text>
       </TouchableOpacity>
     </View>
   );
