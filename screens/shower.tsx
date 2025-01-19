@@ -4,6 +4,9 @@ import { doc, updateDoc, arrayUnion, getFirestore, getDoc } from 'firebase/fires
 import { FIREBASE_AUTH } from 'firebase'; // Assuming FIREBASE_AUTH is initialized and exported
 import CustomNavbar from 'components/CustomNavbar';
 import { useNavigation } from '@react-navigation/native';
+import {Audio}  from 'expo-av';
+
+const noise = require('../assets/alert.mp3');
 
 export default function FrontPage() {
   const [lastShower, setLastShower] = useState<string | null>(null); // State to store the last shower timestamp

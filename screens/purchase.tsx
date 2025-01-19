@@ -1,59 +1,57 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Linking, SafeAreaView } from 'react-native';
 import CustomNavbar from 'components/CustomNavbar';
-import lazada from '../assets/lazada.png';
-import amazon from '../assets/amazon.png';
-import shopee from '../assets/shopee.png';
+import deodorant from '../assets/deodorant.png';
+import towel from '../assets/towel.png';
+import soap from '../assets/soap.png';
 
 const PurchaseScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Main Content */}
       <View style={styles.content}>
-        <Text style={styles.header}>Purchase Your Soap Now!</Text>
+        <Text style={styles.header}>Purchase Your Shower Items Now!</Text>
 
         <Text style={styles.description}>
-          Discover & buy high-quality body washes from trusted online stores:
+          Buy what you need to stay fresh and clean, you smelly human...
         </Text>
 
         <View style={styles.linkContainer}>
-          {/* Lazada Link Card */}
+          {/* Deo Link Card */}
           <View style={styles.linkCard}>
-            <Image source={lazada} style={styles.logo} />
+            <Image source={deodorant} style={styles.logo} />
             <TouchableOpacity
               onPress={() =>
                 Linking.openURL(
-                  'https://www.lazada.sg/shop-healthbeauty-bathbody-bodysoapsshowergels-bodywash/'
+                  'https://shopee.sg/search?keyword=deodorant'
                 )
               }
             >
-              <Text style={styles.linkText}>Lazada</Text>
+              <Text style={styles.linkText}>Deodorant</Text>
             </TouchableOpacity>
           </View>
 
           {/* Amazon Link Card */}
           <View style={styles.linkCard}>
-            <Image source={amazon} style={styles.logo} />
+            <Image source={towel} style={styles.logo} />
             <TouchableOpacity
               onPress={() =>
-                Linking.openURL(
-                  'https://www.amazon.sg/s?k=amazon+body+wash&adgrpid=94984823719&hvadid=587401489396&hvdev=c&hvlocphy=9062542&hvnetw=g&hvqmt=e&hvrand=9494914807759701025&hvtargid=kwd-361201549438&hydadcr=1056_339584&tag=googlepcstdsg-22&ref=pd_sl_4w6jff7hft_e'
-                )
+                Linking.openURL('https://shopee.sg/search?keyword=towel')
               }
             >
-              <Text style={styles.linkText}>Amazon</Text>
+              <Text style={styles.linkText}>Towels</Text>
             </TouchableOpacity>
           </View>
 
-          {/* Shopee Link Card */}
+          {/* Soap Link Card */}
           <View style={styles.linkCard}>
-            <Image source={shopee} style={styles.logo} />
+            <Image source={soap} style={styles.logo} />
             <TouchableOpacity
               onPress={() =>
-                Linking.openURL('https://shopee.sg/search?keyword=body%20wash&is_from_login=true')
+                Linking.openURL('https://shopee.sg/search?keyword=head%20%26%20shoulder%20shampoo')
               }
             >
-              <Text style={styles.linkText}>Shopee</Text>
+              <Text style={styles.linkText}>Body Wash</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -104,7 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderWidth: 2,
     borderColor: '#ffa385',
-    borderRadius: 12,
+    borderRadius: 20,
     padding: 15,
     alignItems: 'center',
     width: 100,
