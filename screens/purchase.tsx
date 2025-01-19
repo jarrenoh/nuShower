@@ -5,7 +5,7 @@ import deodorant from '../assets/deodorant.png';
 import towel from '../assets/towel.png';
 import soap from '../assets/soap.png';
 
-const PurchaseScreen = () => {d
+const PurchaseScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Main Content */}
