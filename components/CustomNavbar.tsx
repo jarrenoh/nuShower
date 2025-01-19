@@ -35,20 +35,20 @@ const styles = StyleSheet.create({
   navbar: {
     flexDirection: 'row', // Arrange the rows vertically
     justifyContent: 'space-around', // Space out the rows
-    backgroundColor: '#104376', // Navy Blue
+    backgroundColor: '#D3D3D3', // Navy Blue
     paddingVertical: 10,
     width: '100%',
   },
   row: {
     flexDirection: 'row',   // Arrange items in each row horizontally
-    justifyContent: 'center', // Center items in the row
+    justifyContent: 'space-between', // Distribute items evenly
     marginVertical: 5,       // Space between rows
   },
   navItem: {
     paddingHorizontal: 20,
     marginHorizontal: 10,    // Space between navbar items horizontally
   },
-  icons : {
+  icons: {
     width: 30,
     height: 30,
   },
