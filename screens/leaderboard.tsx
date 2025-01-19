@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   Image,
+  Alert,
 } from 'react-native';
 import { FIREBASE_AUTH } from 'firebase';
 import { getFirestore, collection, getDocs, QueryDocumentSnapshot } from 'firebase/firestore';
@@ -32,42 +33,57 @@ const LeaderboardScreen: React.FC = () => {
   const fetchLeaderboardData = async () => {
     try {
       setLoading(true);
-
+  
       // Fetch all user documents from the "users" collection
       const snapshot = await getDocs(collection(FIREBASE_DB, 'users'));
-
-      // Map the data into a User array
+  
       const data: User[] = snapshot.docs.map((doc: QueryDocumentSnapshot) => {
         const userData = doc.data();
-        const lastShowerTime = userData.timestamps?.[userData.timestamps.length - 1]?.createdAt?.toDate() || null;
-
+  
+        // Ensure timestamps is a valid array
+        const timestamps = Array.isArray(userData.timestamps) ? userData.timestamps : [];
+  
+        // Get the last timestamp and validate it
+        const lastTimestamp = timestamps[timestamps.length - 1];
+        const lastShowerTime = lastTimestamp?.createdAt?.toDate?.() || null;
+  
         return {
           id: doc.id,
           email: userData.email || 'No email available',
           lastShowerTime,
         };
       });
-
+  
       // Sort users by the longest last shower time first, followed by users with no data (null)
       data.sort((a, b) => {
-        // If both have lastShowerTime, sort by the time difference (longest time first)
         if (a.lastShowerTime && b.lastShowerTime) {
-          return a.lastShowerTime.getTime() - b.lastShowerTime.getTime(); // descending order
+          return a.lastShowerTime.getTime() - b.lastShowerTime.getTime();
         }
-        // If a has no lastShowerTime, move it to the end (but keep b in the list)
         if (!a.lastShowerTime) return 1;
-        // If b has no lastShowerTime, move it to the end (but keep a in the list)
         if (!b.lastShowerTime) return -1;
         return 0;
       });
-
+  
       setLeaderboardData(data);
+  
+      // Check the current user's last shower time
+      const currentUser = data.find((user) => user.id === currentUserId);
+      if (currentUser && currentUser.lastShowerTime) {
+        const now = new Date();
+        const diffInHours = (now.getTime() - currentUser.lastShowerTime.getTime()) / (1000 * 60 * 60);
+  
+        if (diffInHours > 8) {
+          Alert.alert('Reminder', 'It has been over 8 hours since your last shower. Time to freshen up!');
+        }
+      }
+  
       setLoading(false);
     } catch (error) {
       console.error('Error fetching leaderboard data:', error);
       setLoading(false);
     }
   };
+  
 
   const formatTimeElapsed = (lastShowerTime: Date | null): string => {
     if (!lastShowerTime) return 'No data available';
