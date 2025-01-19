@@ -12,6 +12,9 @@ import {
 import { FIREBASE_AUTH } from 'firebase';
 import { getFirestore, collection, getDocs, QueryDocumentSnapshot } from 'firebase/firestore';
 import CustomNavbar from '../components/CustomNavbar';
+import { Audio } from 'expo-av';
+
+const stinky = require('../assets/stinky.mp3');
 
 const FIREBASE_DB = getFirestore();
 
@@ -20,6 +23,16 @@ interface User {
   email: string;
   lastShowerTime: Date | null;
 }
+
+const playAlertSound = async () => {
+  const sound = new Audio.Sound();
+  try {
+    await sound.loadAsync(stinky);
+    await sound.playAsync();
+  } catch (error) {
+    console.error('Error playing sound:', error);
+  }
+};
 
 const LeaderboardScreen: React.FC = () => {
   const [leaderboardData, setLeaderboardData] = useState<User[]>([]);
@@ -73,6 +86,7 @@ const LeaderboardScreen: React.FC = () => {
         const diffInHours = (now.getTime() - currentUser.lastShowerTime.getTime()) / (1000 * 60 * 60);
   
         if (diffInHours > 8) {
+          await playAlertSound();
           Alert.alert('Reminder', 'It has been over 8 hours since your last shower. Time to freshen up!');
         }
       }
