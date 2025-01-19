@@ -127,13 +127,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   timestampButton: {
-    backgroundColor: '#32CD32',
+    backgroundColor: '#6DAF6D',
   },
   showerButton: {
     backgroundColor: '#4169e1',
   },
   signOutButton: {
-    backgroundColor: '#FF4500',
+    backgroundColor: '#D64531',
   },
   buttonText: {
     color: '#fff',
