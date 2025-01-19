@@ -4,9 +4,9 @@ import { doc, updateDoc, arrayUnion, getFirestore, getDoc } from 'firebase/fires
 import { FIREBASE_AUTH } from 'firebase'; // Assuming FIREBASE_AUTH is initialized and exported
 import CustomNavbar from 'components/CustomNavbar';
 import { useNavigation } from '@react-navigation/native';
-import {Audio}  from 'expo-av';
+import { Audio } from 'expo-av';
 
-const noise = require('../assets/alert.mp3');
+const stinky = require('../assets/stinky.mp3');
 
 export default function FrontPage() {
   const [lastShower, setLastShower] = useState<string | null>(null); // State to store the last shower timestamp
@@ -33,6 +33,8 @@ export default function FrontPage() {
               const hoursSinceLastShower = (now.getTime() - lastShowerTime.getTime()) / (1000 * 60 * 60);
 
               if (hoursSinceLastShower > 8) {
+                // Play sound and show alert
+                await playAlertSound();
                 Alert.alert('Reminder', 'It’s been more than 8 hours since your last shower. Time to freshen up!');
               }
             } else {
@@ -48,6 +50,16 @@ export default function FrontPage() {
 
     fetchLastShowerAndCheckAlert();
   }, [user]);
+
+  const playAlertSound = async () => {
+    const sound = new Audio.Sound();
+    try {
+      await sound.loadAsync(stinky);
+      await sound.playAsync();
+    } catch (error) {
+      console.error('Error playing sound:', error);
+    }
+  };
 
   const handleTimestampUpload = async () => {
     if (!user) {
