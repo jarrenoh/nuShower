@@ -6,12 +6,12 @@ import CustomNavbar from 'components/CustomNavbar';
 import { useNavigation } from '@react-navigation/native';
 
 export default function FrontPage() {
-  const [lastShower, setLastShower] = useState(null); // State to store the last shower timestamp
+  const [lastShower, setLastShower] = useState<string | null>(null); // State to store the last shower timestamp
   const user = FIREBASE_AUTH.currentUser; // Get the current user
   const navigation = useNavigation();
 
   useEffect(() => {
-    const fetchLastShower = async () => {
+    const fetchLastShowerAndCheckAlert = async () => {
       if (user) {
         try {
           const userDocRef = doc(getFirestore(), 'users', user.uid);
@@ -20,8 +20,18 @@ export default function FrontPage() {
           if (userDoc.exists()) {
             const timestamps = userDoc.data().timestamps || [];
             if (timestamps.length > 0) {
-              const lastTimestamp = timestamps[timestamps.length - 1]; // Get the latest timestamp
-              setLastShower(`${lastTimestamp.date} at ${lastTimestamp.time}`);
+              const lastTimestamp = timestamps[timestamps.length - 1]?.createdAt;
+              const lastShowerTime = lastTimestamp.toDate ? lastTimestamp.toDate() : new Date(lastTimestamp);
+
+              setLastShower(`${lastShowerTime.toLocaleDateString()} at ${lastShowerTime.toLocaleTimeString()}`);
+
+              // Calculate hours since last shower
+              const now = new Date();
+              const hoursSinceLastShower = (now.getTime() - lastShowerTime.getTime()) / (1000 * 60 * 60);
+
+              if (hoursSinceLastShower > 8) {
+                Alert.alert('Reminder', 'It’s been more than 8 hours since your last shower. Time to freshen up!');
+              }
             } else {
               setLastShower('No record available.');
             }
@@ -33,7 +43,7 @@ export default function FrontPage() {
       }
     };
 
-    fetchLastShower();
+    fetchLastShowerAndCheckAlert();
   }, [user]);
 
   const handleTimestampUpload = async () => {
